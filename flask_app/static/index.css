@@ -1,0 +1,26 @@
+
+body,html {
+    height: 100%;
+}
+
+header {
+    
+    display: flex;
+    align-items: center;
+    
+}
+
+main {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main > form > h2 {
+    text-align: center;
+}
+
+main > form {
+    gap: 15px;
+}

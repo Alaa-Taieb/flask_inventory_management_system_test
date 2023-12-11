@@ -1,13 +1,18 @@
 from flask_app import app
-from flask import render_template, redirect, session, request
-from flask_app import authenticated
+from flask import render_template, redirect, session, request , url_for
+from flask_app import authenticated , authenticate
 from flask_app.models.user import User
 
 @app.route("/")
 def index():
     """
-    Renders the index template.
+    The function checks if the user is authenticated and redirects them to the dashboard if they are,
+    otherwise it renders the index.html template.
+    :return: either a redirect to the 'dashboard' route if the user is authenticated, or it is returning
+    the rendered template "index.html" if the user is not authenticated.
     """
+    if authenticated():
+        return redirect(url_for('dashboard'))
     return render_template("index.html")
 
 @app.route("/login", methods=["POST"])
@@ -36,7 +41,7 @@ def login():
     # Decide which user data to save in session (e.g., role_name, username, user ID)
 
     if User.validate_login(data):
-        session["user_id"] = User.get_by_username().id
-        return redirect("/dashboard")
+        authenticate(username = data['username'])
+        return redirect(url_for('dashboard'))
 
-    return redirect("/")
+    return redirect(url_for('index'))

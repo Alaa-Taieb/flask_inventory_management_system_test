@@ -75,7 +75,7 @@ class User:
         Returns:
             A User object or None if no user is found.
         """
-        query = "SELECT * FROM user WHERE id = %(id)s;"
+        query = "SELECT * FROM user JOIN role ON role.id = user.role_id WHERE id = %(id)s;"
         results = connectToMySQL(DB).query_db(query , data)
 
         # Initialize a variable to store the user
@@ -109,15 +109,24 @@ class User:
             A User object or None if no user is found.
         """
 
-        query = "SELECT * FROM user WHERE username = %(username)s;"
+        query = "SELECT * FROM user JOIN role ON role.id = user.role_id WHERE username = %(username)s;"
         results = connectToMySQL(DB).query_db(query, data)
-
+        
         # Initialize a variable to store the user
         user = None
 
         # Check if a result was found
         if results:
             user = cls(results[0])
+            # Create a Role object from the role data and associate it with the user
+            role_data = {
+                "id": results[0]['role.id'],
+                "role_name": results[0]['role_name'],
+                "description": results[0]['description'],
+                "created_at": results[0]['role.created_at'],
+                "updated_at": results[0]['role.updated_at'],
+            }
+            user.role = Role(role_data)
 
         return user
 

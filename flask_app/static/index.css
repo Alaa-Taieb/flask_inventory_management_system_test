@@ -24,3 +24,10 @@ main > form > h2 {
 main > form {
     gap: 15px;
 }
+
+.alert{
+    position: absolute!important;
+    width: 60%;
+    bottom: 0;
+    left: calc(50% - 30%);
+}

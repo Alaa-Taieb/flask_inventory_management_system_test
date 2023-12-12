@@ -3,3 +3,42 @@
     border: 1px solid #212529;
     border-radius: 15px;
 }
+
+.header{
+    padding: 0 30px;
+}
+
+.header_buttons {
+    gap: 20px;
+}
+
+.side_buttons {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.side_buttons > ul {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    gap: 30px;
+}
+
+.side_buttons > ul > li {
+    font-weight: bold;
+}
+
+.side_buttons > ul > li > a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.side_buttons > ul > li > a > img {
+    width: 20px;
+}
+
+.main_display {
+    flex: 9;
+}

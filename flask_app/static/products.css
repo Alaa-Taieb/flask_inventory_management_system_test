@@ -1,0 +1,52 @@
+
+.main_display {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
+
+.product_form_and_low_stock_container {
+    flex: 4;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.product_form_and_low_stock_container > form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+}
+
+.product_list_container {
+    flex: 6;
+}
+
+.form_body {
+    display: flex;
+}
+
+
+.form_input_container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+}
+
+.form_footer > button{
+    width: 100%;
+}
+
+
+.low_stock_container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.product_list_container {
+    padding: 20px;
+}

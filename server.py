@@ -1,5 +1,5 @@
 from flask_app import app
-from flask_app.controllers import index , dashboard
+from flask_app.controllers import index , dashboard , products
 
 
 

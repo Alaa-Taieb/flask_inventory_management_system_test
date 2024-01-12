@@ -1,6 +1,6 @@
 from flask_app import app
 from flask import render_template, redirect, session, request , url_for
-from flask_app import authenticated , authenticate
+from flask_app import authenticated , authenticate , check_login , clear_authentication_data
 from flask_app.models.user import User
 
 @app.route("/")
@@ -44,4 +44,14 @@ def login():
         authenticate(username = data['username'])
         return redirect(url_for('dashboard'))
 
+    return redirect(url_for('index'))
+
+@app.route("/logout")
+@check_login
+def logout():
+    """
+    The function "logout" clears authentication data and redirects the user to the index page.
+    :return: a redirect to the 'index' route.
+    """
+    clear_authentication_data()
     return redirect(url_for('index'))

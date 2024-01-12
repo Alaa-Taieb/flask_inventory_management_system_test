@@ -1,4 +1,6 @@
-
+body{
+    overflow: hidden;
+}
 .main_display {
     display: flex;
     gap: 20px;
@@ -49,4 +51,17 @@
 
 .product_list_container {
     padding: 20px;
+}
+
+#messages_container{
+    height: 0;
+    width: 100%;
+    position: fixed!important;
+    left: 5%;
+}
+
+.message_box {
+    opacity: 0.8;
+    width: 90%;
+    
 }

@@ -70,3 +70,11 @@ def check_login(func):
             return redirect(url_for('index'))
         return func(*args , **kwargs)
     return decorated_function
+
+def clear_authentication_data():
+    """
+    The function clears the authentication data stored in the session.
+    """
+    session.pop(LOGGED_USER_ID_SESSION_KEY)
+    session.pop(LOGGED_USER_ROLE_ID_SESSION_KEY)
+    

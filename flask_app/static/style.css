@@ -42,3 +42,7 @@
 .main_display {
     flex: 9;
 }
+
+button > img {
+    width: 20px;
+}

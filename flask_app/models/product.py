@@ -116,3 +116,27 @@ class Product:
 
         query = "DELETE FROM product WHERE id = %(id)s;"
         return connectToMySQL(DB).query_db(query, data)
+    
+    @classmethod
+    def get_by_reference(cls, data):
+        """
+        The function `get_by_reference` retrieves a product from a database based on its reference
+        number.
+        
+        :param cls: The parameter "cls" is a reference to the class that is calling the method. It is
+        used to create an instance of the class using the data retrieved from the database
+        :param data: The `data` parameter is a dictionary that contains the reference value that will be
+        used in the SQL query. The dictionary should have a key called "reference" with the
+        corresponding reference value as its value
+        :return: The method `get_by_reference` returns an instance of the `cls` class if a product with
+        the given reference is found in the database. If no product is found, it returns `None`.
+        """
+        query = "SELECT * FROM products WHERE reference = %(reference)s;"
+        results = connectToMySQL(DB).query_db(query , data)
+
+        if results:
+            product = cls(results[0])
+            return product
+        return None
+
+    

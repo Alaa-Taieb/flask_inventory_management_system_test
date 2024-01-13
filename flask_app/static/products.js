@@ -1,3 +1,5 @@
+import { show_messages_v2 } from './alert_message.js';
+
 const add_product_form = document.querySelector("#add_product_form");
 
 /* These lines of code are selecting specific elements from the HTML document using their respective
@@ -87,153 +89,11 @@ function check_reference(){
     .then(data => {
         
         switch_reference_status(data.ref_validity);
-        show_messages(data.messages_object , 5);
+        show_messages_v2(data.messages_object , 5);
     })
     .catch()
 }
 
-/**
- * The function `show_messages` displays error or success messages in a message box with a close button
- * and a timer.
- * @param messages_object - The `messages_object` parameter is an object that contains the messages to
- * be displayed. It has the following properties:
- * @param timeout - The timeout parameter is the duration in milliseconds for which the message box
- * will be displayed before automatically closing.
- */
-function show_messages(messages_object , timeout){
-    let message_box;
-    let unordered_list = document.createElement("ul");
-    let button = document.createElement("button");
-    let timer = document.createElement("span");
-    timer.innerText = 0;
-    button.appendChild(timer);
-    if (messages_object.category == 'error'){
-        let displayed_messages = document.querySelectorAll("#messages_container > .error");
-        if (displayed_messages.length == 1) {
-            message_box = displayed_messages[0];
-            unordered_list = message_box.querySelector("ul");
-        }else{
-            message_box = document.createElement("div");
-            
-            message_box.classList = "message_box error d-flex justify-content-between align-items-center alert alert-danger";
-            unordered_list.classList = "messages";
-            button.classList = "btn btn-danger";
-            button.innerHTML += " Close";
-            message_box.appendChild(unordered_list);
-            message_box.appendChild(button);
-            button.addEventListener("click" , () => {
-                removeMessage(message_box);
-            })
-        }
-        
-        if (displayed_messages.length == 0){
-            messages_container.appendChild(message_box);
-            message_box.style.translate = "0px 100px";
-            let time = 250;
-            let in_animation = setInterval(() => {
-                
-                if (current_time == 0){
-                    clearInterval(in_animation);
-                }else{
-                    message_box.style.translate = `0px ${(current_time / time) * 100}px`;
-                    message_box.style.opacity =0.8- (current_time / time);
-                    current_time -= 5;
-                }
-            }, 5, time = time, current_time = time);
-        }
-    }else if(messages_object.category == 'success'){
-        let displayed_messages = document.querySelectorAll("#messages_container > .success");
-        if (displayed_messages.length == 1) {
-            message_box = displayed_messages[0];
-            unordered_list = message_box.querySelector("ul");
-            
-        }else{
-            message_box = document.createElement("div");
-            message_box.classList = "message_box success d-flex justify-content-between align-items-center alert alert-success";
-            console.log(message_box.classList);
-            unordered_list.classList = "messages";
-            button.classList = "btn btn-success";
-            button.innerHTML += " Close";
-            message_box.appendChild(unordered_list);
-            message_box.appendChild(button);
-            button.addEventListener("click" , () => {
-                removeMessage(message_box);
-            })
-        }
-        
-        console.log(displayed_messages)
-        if (displayed_messages.length == 0){
-            messages_container.appendChild(message_box);
-            message_box.style.translate = "0px 100px";
-            let time = 250;
-            let in_animation = setInterval(() => {
-                
-                if (current_time == 0){
-                    clearInterval(in_animation);
-                }else{
-                    message_box.style.translate = `0px ${(current_time / time) * 100}px`;
-                    message_box.style.opacity =0.8- (current_time / time);
-                    current_time -= 5;
-                }
-            }, 5, time = time, current_time = time);
-        }
-    }
-    messages_object.messages.forEach(message => {
-        let list_item = document.createElement("li");
-        list_item.classList = "message";
-        list_item.innerText = message;
-        unordered_list.appendChild(list_item);
-    });
-    let container_height = 20;
-    messages_container.querySelectorAll(".message_box").forEach(element =>{
-        container_height += element.offsetHeight;
-        if (element.classList.contains(messages_object.category)){
-            
-            let current_time = parseInt(element.querySelector("button").querySelector("span").innerText);
-            let new_time = current_time + timeout;
-            element.querySelector("button").querySelector("span").innerText = new_time;
-            if (!element.querySelector('a')){
-                let memory_element = document.createElement("a");
-                memory_element.style.display = "None";
-                element.appendChild(memory_element);
-                let interval = setInterval(() => {
-                    
-                    console.log(new_time)
-                    element.querySelector("button").querySelector("span").innerText-= 1;
-                    if (element.querySelector("button").querySelector("span").innerText == 0){
-                        clearInterval(interval)
-                        element.querySelector("a").remove();
-                        removeMessage(element)
-                    }
-                }, 1000 , element = element);
-            }
-        }
-        
-    })
-    
-    messages_container.style.bottom = `${container_height}px`;
 
-    
-}
-
-/**
- * The function `removeMessage` is used to animate the removal of a message box by gradually decreasing
- * its opacity and translating it downwards.
- * @param message_box - The `message_box` parameter is the HTML element that represents the message box
- * that you want to remove.
- */
-function removeMessage(message_box){
-    let time = 250;
-    message_box.style.translate = "0px 0px";
-    let out_animation = setInterval(() => {
-        
-        if (current_time == 0){
-            message_box.remove();
-            clearInterval(out_animation);
-        }else{
-            message_box.style.translate = `0px ${100-(current_time / time) * 100}px`;
-            message_box.style.opacity = (current_time / time);
-            current_time -= 5;
-        }
-    }, 5, time = time, current_time = time);
-}
+window.check_reference = check_reference;
+window.switch_reference_status = switch_reference_status;

@@ -58,7 +58,7 @@ class Role:
             A Role object or None if no role is found.
         """
 
-        query = "SELECT * FROM roles WHERE id = %(id)s;"
+        query = "SELECT * FROM role WHERE id = %(id)s;"
         results = connectToMySQL(DB).query_db(query, data)
 
         # Initialize a variable to store the role
